@@ -4,6 +4,7 @@ import {
   ref,
   push,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
 const appSettings = {
   databaseURL: "https://shopcart-60a1f-default-rtdb.europe-west1.firebasedatabase.app/",
 };
