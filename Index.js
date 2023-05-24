@@ -1,5 +1,7 @@
-const inputEl = document.querySelector(#input-field)
+const inputEl = document.getElementById("input-field");
+const addBtn = document.getElementById("add-btn");
 
-function add() {
-    console.log(inputEl.value)
-}
+addBtn.addEventListener("click", function () {
+  let inputValue = inputEl.value;
+  console.log(inputValue);
+});
