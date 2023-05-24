@@ -39,3 +39,13 @@ button {
   text-align: center;
   font: inherit;
 }
+
+ul {
+}
+
+ul li {
+  background-color: #fffdf8;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+}

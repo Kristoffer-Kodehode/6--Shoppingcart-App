@@ -18,20 +18,28 @@ const shoppingListEl = document.getElementById("shopping-list");
 const database = getDatabase(app);
 const waresInDB = ref(database, "wares");
 onValue(waresInDB, function (snapshot) {
-  let WaresArray = Object.values(snapshot.val());
+  let waresArray = Object.values(snapshot.val());
+  clearShoppingListEl;
+  for (let i = 0; i < waresArray.length; i++) {
+    appendWaresToList(waresArray[i]);
+  }
 });
 
 addBtn.addEventListener("click", function () {
   let inputValue = inputEl.value;
   push(waresInDB, inputValue);
   inputClear();
-  addToList(inputValue);
+  //   appendWaresToList(inputValue);
 });
 
 function inputClear() {
   inputEl.value = "";
 }
 
-function addToList(itemValue) {
+function clearShoppingListEl() {
+  shoppingListEl.innerHTML = "";
+}
+
+function appendWaresToList(itemValue) {
   shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
 }
