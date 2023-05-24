@@ -1,3 +1,16 @@
-* {
+html,
+body {
   margin: 0;
+  background-color: #eef0f4;
+  font-family: rubik, sans-serif;
+}
+
+input {
+  color: #432000;
+  background-color: #dce1eb;
+}
+
+button {
+  color: #fdfdfd;
+  background-color: #ac485a;
 }
