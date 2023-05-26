@@ -4,6 +4,7 @@ import {
   ref,
   push,
   onValue,
+  remove,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 const appSettings = {
@@ -17,11 +18,19 @@ const shoppingListEl = document.getElementById("shopping-list");
 
 const database = getDatabase(app);
 const waresInDB = ref(database, "wares");
+
 onValue(waresInDB, function (snapshot) {
-  let waresArray = Object.values(snapshot.val());
-  clearShoppingListEl;
-  for (let i = 0; i < waresArray.length; i++) {
-    appendWaresToList(waresArray[i]);
+  if (snapshot.exists()) {
+    let waresArray = Object.entries(snapshot.val());
+    clearShoppingListEl();
+    for (let i = 0; i < waresArray.length; i++) {
+      let currentItem = waresArray[i];
+      let currentItemID = currentItem[0];
+      let currentItemValue = currentItem[1];
+      appendWaresToList(currentItem);
+    }
+  } else {
+    shoppingListEl.innerHTML = "Empty";
   }
 });
 
@@ -29,7 +38,6 @@ addBtn.addEventListener("click", function () {
   let inputValue = inputEl.value;
   push(waresInDB, inputValue);
   inputClear();
-  //   appendWaresToList(inputValue);
 });
 
 function inputClear() {
@@ -40,6 +48,14 @@ function clearShoppingListEl() {
   shoppingListEl.innerHTML = "";
 }
 
-function appendWaresToList(itemValue) {
-  shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
+function appendWaresToList(item) {
+  let itemID = item[0];
+  let itemValue = item[1];
+  let newEl = document.createElement("li");
+  newEl.textContent = itemValue;
+  newEl.addEventListener("dblclick", function () {
+    let exactLocationOfItemInDB = ref(database, `wares/${itemID}`);
+    remove(exactLocationOfItemInDB);
+  });
+  shoppingListEl.append(newEl);
 }
